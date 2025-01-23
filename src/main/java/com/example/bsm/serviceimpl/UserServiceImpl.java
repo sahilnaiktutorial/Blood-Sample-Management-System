@@ -15,22 +15,23 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public UserResponse addUser(UserRequest userRequest) {
-//        return userRepository.save(user);
 
-        User user =User.builder()
-                .age(userRequest.getAge())
-                .availableCity(userRequest.getAvailableCity())
-                .bloodGroup(userRequest.getBloodGroup())
-                .gender(userRequest.getGender())
-                .email(userRequest.getEmail())
-                .password(userRequest.getPassword())
-                .phoneNumber(userRequest.getPhoneNumber())
-                .username(userRequest.getUsername())
-                .build();
-user=userRepository.save(user);
-        UserResponse user1 = UserResponse.builder()
+    private  User mapToUser(UserRequest userRequest, User user) {
+        user.setAge(userRequest.getAge());
+        user.setAvailableCity(userRequest.getAvailableCity());
+        user.setBloodGroup(userRequest.getBloodGroup());
+        user.setGender(userRequest.getGender());
+        user.setEmail(userRequest.getEmail());
+        user.setPassword(userRequest.getPassword());
+        user.setPhoneNumber(userRequest.getPhoneNumber());
+        user.setUsername(userRequest.getUsername());
+        return user;
+    }
+
+
+
+    private  UserResponse getUserResponse(User user) {
+        return UserResponse.builder()
                 .age(user.getAge())
                 .availableCity(user.getAvailableCity())
                 .bloodGroup(user.getBloodGroup())
@@ -38,59 +39,38 @@ user=userRepository.save(user);
                 .lastDenotedDate(user.getLastDenotedDate())
                 .verified(user.isVerified())
                 .userId(user.getUserId())
-                .username(userRequest.getUsername())
-                        .build();
-return user1;
+                .username(user.getUsername())
+                .build();
+    }
+
+    @Override
+    public UserResponse addUser(UserRequest userRequest) {
+//        return userRepository.save(user);
 
 
+        User user = this.mapToUser(userRequest, new User());
+    user=userRepository.save(user);
+        UserResponse user1 = this.getUserResponse(user);
+    return user1;
     }
 
     @Override
     public UserResponse findUserById(int userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundByIdException("Fail to find user"));
-
-        return  UserResponse.builder()
-                    .age(user.getAge())
-                    .availableCity(user.getAvailableCity())
-                    .bloodGroup(user.getBloodGroup())
-                    .gender(user.getGender())
-                    .lastDenotedDate(user.getLastDenotedDate())
-                    .verified(user.isVerified())
-                    .userId(user.getUserId())
-                    .username(user.getUsername())
-                    .build();
+        return this.getUserResponse(user);
     }
 
     @Override
     public UserResponse updateUser(int userId, UserRequest user) {
         Optional<User> optional = userRepository.findById(userId);
 
-        if (optional.isPresent()) {
-            User foundUser = optional.get();
-
-            // Update fields of the found user
-            foundUser.setAge(user.getAge());
-            foundUser.setEmail(user.getEmail());
-            foundUser.setPassword(user.getPassword());
-            foundUser.setUsername(user.getUsername());
-            foundUser.setAvailableCity(user.getAvailableCity());
-            foundUser.setPhoneNumber(user.getPhoneNumber());
-
-            User updatedUser = userRepository.save(foundUser);
-
-
-            return UserResponse.builder()
-                    .age(updatedUser.getAge())
-                    .username(updatedUser.getUsername())
-                    .availableCity(updatedUser.getAvailableCity())
-                    .verified(updatedUser.isVerified())
-                    .lastDenotedDate(updatedUser.getLastDenotedDate())
-                    .userId(updatedUser.getUserId())
-                    .build();
-        } else {
+        if (optional.isEmpty())
             throw new UserNotFoundByIdException("Fail to update user with ID: " + userId);
+
+        User foundUser = this.mapToUser(user,optional.get());
+            User updatedUser = userRepository.save(foundUser);
+            return this.getUserResponse(updatedUser);
         }
     }
-}
 
