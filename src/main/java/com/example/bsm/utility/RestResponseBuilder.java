@@ -17,10 +17,10 @@ public class RestResponseBuilder {
                         .build());
     }
 
-    public  <T> ResponseEntity<ErrorStructure> error(HttpStatus status,String message,String rootcause){
+    public  <T> ResponseEntity<ErrorStructure<T>> error(HttpStatus status,String message,T rootcause){
         return ResponseEntity
                 .status(status)
-                .body(ErrorStructure.builder()
+                .body(ErrorStructure.<T>builder() //TYPECASTING RETURNTYPE OF BUILDER <T>
                         .status(status.value())
                         .message(message)
                         .rootCause(rootcause)
