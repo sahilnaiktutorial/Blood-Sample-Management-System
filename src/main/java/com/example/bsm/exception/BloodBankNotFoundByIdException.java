@@ -1,4 +1,11 @@
 package com.example.bsm.exception;
 
-public class BloodBankNotFoundByIdException {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
+public class BloodBankNotFoundByIdException extends RuntimeException {
+
+    private final String message;
 }
