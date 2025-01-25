@@ -11,10 +11,10 @@ import org.springframework.http.HttpStatus;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorStructure {
+public class ErrorStructure<T> {
 
     private int status;
     private String message;
-    private String rootCause;
+    private T rootCause;
 
 }
