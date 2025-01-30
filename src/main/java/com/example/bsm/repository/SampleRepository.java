@@ -1,4 +1,7 @@
 package com.example.bsm.repository;
 
-public interface SampleRepository {
+import com.example.bsm.entity.Sample;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SampleRepository extends JpaRepository<Sample,Integer> {
 }
