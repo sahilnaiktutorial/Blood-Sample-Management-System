@@ -7,11 +7,11 @@ import org.springframework.http.HttpStatus;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
+//Generic Class
 public class ResponseStructure<T> {
 
     private HttpStatus httpStatus;
     private String message;
     private T data;
-
-
 }

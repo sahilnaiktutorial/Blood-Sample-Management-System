@@ -27,4 +27,17 @@ public class RestResponseBuilder {
                         .build());
     }
 
+    public <T> ResponseEntity<PageStructure<T>> success(HttpStatus status, String message, T data, int page, int totalPages, int size) {
+        PageStructure<T> structure = new PageStructure<>();
+        structure.setPage(page);
+        structure.setSize(size);
+        structure.setTotalPages(totalPages);
+        structure.setData(data);
+        structure.setHttpStatus(status);
+        structure.setMessage(message);
+        return  ResponseEntity
+                .status(status)
+                .body(structure);
+    }
+
 }
