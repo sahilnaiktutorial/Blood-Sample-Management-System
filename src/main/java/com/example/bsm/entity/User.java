@@ -2,13 +2,12 @@ package com.example.bsm.entity;
 
 import com.example.bsm.enums.BloodGroup;
 import com.example.bsm.enums.Gender;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.bsm.enums.Role;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,6 +16,8 @@ import java.util.Date;
 @NoArgsConstructor
 
 public class User {
+
+
 
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +33,24 @@ public class User {
     private Gender gender ;
     private String availableCity;
     private boolean verified;
+    private Role role;
 
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
+    private Admin admin;
+
+    @OneToOne
+    private Address address;
+
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transaction;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Survey> surveys;
+
+    @OneToMany(mappedBy = "user")
+    private List<DonationLead> donationLeadList;
+
+
+    @OneToMany
+    private List<Donation> donationList;
 }

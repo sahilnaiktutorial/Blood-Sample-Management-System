@@ -2,6 +2,7 @@ package com.example.bsm.response;
 
 import com.example.bsm.enums.BloodGroup;
 import com.example.bsm.enums.Gender;
+import com.example.bsm.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +24,5 @@ public class UserResponse {
     private Gender gender ;
     private String availableCity;
     private boolean verified;
+    private Role role;
 }

@@ -1,4 +1,11 @@
 package com.example.bsm.exception;
 
-public class AddressNotFoundByIdException {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
+public class AddressNotFoundByIdException extends RuntimeException{
+
+    private final String message;
 }

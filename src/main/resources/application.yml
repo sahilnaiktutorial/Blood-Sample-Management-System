@@ -1,11 +1,21 @@
 spring:
   application:
     name: blood-sample-management-api
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: naiksahil478@gmail.com
+    password: suuwwikwwtkfggqo
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
   datasource:
     username: root
     password: 1234
-    url: jdbc:mysql://localhost:3306/bsm_db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/BloodyEmail?createDatabaseIfNotExist=true
   jpa:
     show-sql: true
     hibernate:

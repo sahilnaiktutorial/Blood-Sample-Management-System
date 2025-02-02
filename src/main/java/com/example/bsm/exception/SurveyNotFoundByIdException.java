@@ -1,4 +1,10 @@
 package com.example.bsm.exception;
 
-public class SurveyNotFoundByIdException {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
+public class SurveyNotFoundByIdException extends RuntimeException{
+    private final String message;
 }
