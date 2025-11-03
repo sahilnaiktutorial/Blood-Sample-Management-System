@@ -17,7 +17,7 @@ public class BloodSampleManagementApiApplication {
 //    host: smtp.gmail.com
 //    port: 587
 //    username: naiksahil478@gmail.com 
-//    password: zvpwhilucbtfrpxk
+//    password: 
 //    properties:
 //      mail:
 //        smtp:
